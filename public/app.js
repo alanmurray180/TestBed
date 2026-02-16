@@ -49,10 +49,11 @@ function renderResults(data) {
 
   document.getElementById("company-name").textContent = data.companyName;
   document.getElementById("ticker-badge").textContent = data.ticker;
+  const sym = data.currencySymbol || "$";
   document.getElementById("current-price").textContent =
-    "$" + data.currentPrice.toFixed(2);
+    sym + data.currentPrice.toFixed(2);
   document.getElementById("target-price").textContent =
-    "$" + data.targetPrice.toFixed(2);
+    sym + data.targetPrice.toFixed(2);
 
   const upsideEl = document.getElementById("upside");
   upsideEl.textContent =
@@ -99,7 +100,7 @@ function renderModelsChart(data) {
       <div class="bar-track">
         <div class="bar-fill" style="width: ${pct}%; background: ${isAbove ? "var(--green)" : "var(--red)"}"></div>
       </div>
-      <span class="model-target" style="color: ${isAbove ? "var(--green)" : "var(--red)"}">$${model.target.toFixed(2)}</span>
+      <span class="model-target" style="color: ${isAbove ? "var(--green)" : "var(--red)"}">${data.currencySymbol || "$"}${model.target.toFixed(2)}</span>
     `;
     container.appendChild(bar);
   }
