@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Target Pricing</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Stock Target Pricing</h1>
+      <p class="subtitle">Enter a ticker to get a 12-month target price and investment rationale</p>
+    </header>
+
+    <form id="ticker-form">
+      <div class="input-group">
+        <input
+          type="text"
+          id="ticker-input"
+          placeholder="e.g. AAPL"
+          maxlength="5"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button type="submit" id="analyze-btn">Analyze</button>
+      </div>
+    </form>
+
+    <div id="loading" class="hidden">
+      <div class="spinner"></div>
+      <p>Fetching data and computing target price&hellip;</p>
+    </div>
+
+    <div id="error" class="hidden"></div>
+
+    <div id="results" class="hidden">
+      <div class="summary-card">
+        <div class="company-header">
+          <h2 id="company-name"></h2>
+          <span id="ticker-badge" class="badge"></span>
+        </div>
+
+        <div class="price-grid">
+          <div class="price-box">
+            <span class="label">Current Price</span>
+            <span class="value" id="current-price"></span>
+          </div>
+          <div class="price-box target">
+            <span class="label">Target Price</span>
+            <span class="value" id="target-price"></span>
+          </div>
+          <div class="price-box">
+            <span class="label">Upside / Downside</span>
+            <span class="value" id="upside"></span>
+          </div>
+          <div class="price-box">
+            <span class="label">Recommendation</span>
+            <span class="value" id="recommendation"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="models-section">
+        <h3>Valuation Model Breakdown</h3>
+        <div id="models-chart" class="models-chart"></div>
+      </div>
+
+      <div class="rationale-section">
+        <h3>Full Rationale</h3>
+        <div id="rationale" class="rationale-content"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Data sourced from Yahoo Finance. For informational purposes only &mdash; not investment advice.</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "stock-target-pricing",
+  "version": "1.0.0",
+  "description": "Stock target pricing app with rationale generation",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
