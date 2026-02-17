@@ -10,6 +10,7 @@ let acHighlight = -1;
 let acItems = [];
 let debounceTimer = null;
 let abortController = null;
+let lastQuery = "";
 
 // --- Autocomplete ---
 
@@ -18,9 +19,15 @@ input.addEventListener("input", () => {
   const q = input.value.trim();
   if (q.length < 2) {
     hideAutocomplete();
+    lastQuery = "";
     return;
   }
-  debounceTimer = setTimeout(() => fetchSuggestions(q), 250);
+  // Skip if query hasn't meaningfully changed
+  if (q === lastQuery) return;
+  debounceTimer = setTimeout(() => {
+    lastQuery = q;
+    fetchSuggestions(q);
+  }, 400);
 });
 
 input.addEventListener("keydown", (e) => {
