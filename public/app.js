@@ -165,6 +165,14 @@ function renderResults(data) {
   resultsEl.classList.remove("hidden");
   btn.disabled = false;
 
+  // Show/hide demo mode banner
+  const demoBanner = document.getElementById("demo-banner");
+  if (data.demo) {
+    demoBanner.classList.remove("hidden");
+  } else {
+    demoBanner.classList.add("hidden");
+  }
+
   document.getElementById("company-name").textContent = data.companyName;
   document.getElementById("ticker-badge").textContent = data.ticker;
   const sym = data.currencySymbol || "$";
@@ -226,5 +234,5 @@ function renderModelsChart(data) {
 
 function renderRationale(markdown) {
   const container = document.getElementById("rationale");
-  container.innerHTML = marked.parse(markdown);
+  container.innerHTML = window.renderMarkdown(markdown);
 }
