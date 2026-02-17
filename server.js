@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { analyzeStock } from "./lib/analyzer.js";
+import { analyzeStock, searchTickers } from "./lib/analyzer.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,6 +11,20 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/api/search", async (req, res) => {
+  const q = (req.query.q || "").trim();
+  if (!q || q.length < 1) {
+    return res.json([]);
+  }
+  try {
+    const results = await searchTickers(q);
+    res.json(results);
+  } catch (err) {
+    console.error("Search error:", err.message);
+    res.json([]);
+  }
+});
 
 app.get("/api/analyze/:ticker", async (req, res) => {
   const ticker = req.params.ticker.toUpperCase().trim();

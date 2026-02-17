@@ -15,14 +15,17 @@
 
     <form id="ticker-form">
       <div class="input-group">
-        <input
-          type="text"
-          id="ticker-input"
-          placeholder="e.g. AAPL, LLOY.L, RHM.F"
-          maxlength="15"
-          autocomplete="off"
-          spellcheck="false"
-        />
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="ticker-input"
+            placeholder="Search by name or ticker, e.g. Swiss Re, AAPL"
+            maxlength="40"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <ul id="autocomplete-list" class="autocomplete-list hidden"></ul>
+        </div>
         <button type="submit" id="analyze-btn">Analyze</button>
       </div>
     </form>

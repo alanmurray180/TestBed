@@ -4,9 +4,120 @@ const btn = document.getElementById("analyze-btn");
 const loadingEl = document.getElementById("loading");
 const errorEl = document.getElementById("error");
 const resultsEl = document.getElementById("results");
+const acList = document.getElementById("autocomplete-list");
+
+let acHighlight = -1;
+let acItems = [];
+let debounceTimer = null;
+let abortController = null;
+
+// --- Autocomplete ---
+
+input.addEventListener("input", () => {
+  clearTimeout(debounceTimer);
+  const q = input.value.trim();
+  if (q.length < 2) {
+    hideAutocomplete();
+    return;
+  }
+  debounceTimer = setTimeout(() => fetchSuggestions(q), 250);
+});
+
+input.addEventListener("keydown", (e) => {
+  if (acList.classList.contains("hidden")) return;
+
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    acHighlight = Math.min(acHighlight + 1, acItems.length - 1);
+    updateHighlight();
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    acHighlight = Math.max(acHighlight - 1, 0);
+    updateHighlight();
+  } else if (e.key === "Enter" && acHighlight >= 0) {
+    e.preventDefault();
+    selectItem(acItems[acHighlight]);
+  } else if (e.key === "Escape") {
+    hideAutocomplete();
+  }
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".input-wrapper")) {
+    hideAutocomplete();
+  }
+});
+
+async function fetchSuggestions(query) {
+  if (abortController) abortController.abort();
+  abortController = new AbortController();
+
+  try {
+    const res = await fetch(
+      `/api/search?q=${encodeURIComponent(query)}`,
+      { signal: abortController.signal }
+    );
+    const data = await res.json();
+    acItems = data;
+    renderAutocomplete(data);
+  } catch (err) {
+    if (err.name !== "AbortError") hideAutocomplete();
+  }
+}
+
+function renderAutocomplete(items) {
+  acList.innerHTML = "";
+  acHighlight = -1;
+
+  if (items.length === 0) {
+    hideAutocomplete();
+    return;
+  }
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const li = document.createElement("li");
+    li.className = "ac-item";
+    li.innerHTML =
+      `<span class="ac-symbol">${item.symbol}</span>` +
+      `<span class="ac-name">${item.name}</span>` +
+      `<span class="ac-exchange">${item.exchange}</span>`;
+    li.addEventListener("mouseenter", () => {
+      acHighlight = i;
+      updateHighlight();
+    });
+    li.addEventListener("click", () => selectItem(item));
+    acList.appendChild(li);
+  }
+
+  acList.classList.remove("hidden");
+}
+
+function updateHighlight() {
+  const children = acList.children;
+  for (let i = 0; i < children.length; i++) {
+    children[i].classList.toggle("ac-active", i === acHighlight);
+  }
+}
+
+function selectItem(item) {
+  input.value = item.symbol;
+  hideAutocomplete();
+  input.focus();
+}
+
+function hideAutocomplete() {
+  acList.classList.add("hidden");
+  acList.innerHTML = "";
+  acHighlight = -1;
+  acItems = [];
+}
+
+// --- Form submit ---
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  hideAutocomplete();
   const ticker = input.value.trim().toUpperCase();
   if (!ticker) return;
 
