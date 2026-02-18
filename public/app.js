@@ -282,7 +282,7 @@ function downloadPdf() {
       format: "a4",
       orientation: "portrait",
     },
-    pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+    pagebreak: { mode: ["css", "legacy"] },
   };
 
   html2pdf()

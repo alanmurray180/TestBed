@@ -439,6 +439,52 @@ header h1 {
   color: #ffffff;
 }
 
+#pdf-content.pdf-light .models-section h3,
+#pdf-content.pdf-light .rationale-section h3 {
+  color: #5a4bd1;
+}
+
+#pdf-content.pdf-light .model-bar {
+  background: #f5f6f8;
+  border-color: #d0d4dc;
+  color: #1a1d27;
+}
+
+#pdf-content.pdf-light .model-bar .bar-track {
+  background: #e8eaef;
+}
+
+#pdf-content.pdf-light .rationale-content {
+  background: #f5f6f8;
+  border-color: #d0d4dc;
+  color: #1a1d27;
+}
+
+#pdf-content.pdf-light .rationale-content h1,
+#pdf-content.pdf-light .rationale-content h2,
+#pdf-content.pdf-light .rationale-content h3 {
+  color: #5a4bd1;
+}
+
+#pdf-content.pdf-light .rationale-content th {
+  background: #e8eaef;
+  color: #1a1d27;
+  border-color: #d0d4dc;
+}
+
+#pdf-content.pdf-light .rationale-content td {
+  color: #1a1d27;
+  border-color: #d0d4dc;
+}
+
+#pdf-content.pdf-light .rationale-content hr {
+  border-top-color: #d0d4dc;
+}
+
+#pdf-content.pdf-light .rationale-content em {
+  color: #5a5f72;
+}
+
 /* --- PDF Download Button --- */
 .pdf-action {
   display: flex;
