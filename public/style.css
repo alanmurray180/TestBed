@@ -404,6 +404,48 @@ header h1 {
 .rec-sell { color: var(--red); }
 .rec-hold { color: var(--yellow); }
 
+/* --- PDF Date Stamp --- */
+.pdf-datestamp {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: right;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+/* --- PDF Download Button --- */
+.pdf-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.pdf-btn {
+  padding: 0.75rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--green), #00b3ae);
+  color: #0f1117;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  letter-spacing: 0.03em;
+}
+
+.pdf-btn:hover {
+  opacity: 0.88;
+}
+
+.pdf-btn:active {
+  transform: scale(0.97);
+}
+
+.pdf-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* --- Footer --- */
 footer {
   margin-top: 3rem;
