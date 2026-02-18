@@ -173,6 +173,19 @@ function renderResults(data) {
     demoBanner.classList.add("hidden");
   }
 
+  // Date stamp
+  const now = new Date();
+  const dateStr = now.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZoneName: "short",
+  });
+  document.getElementById("pdf-datestamp").textContent = "Generated: " + dateStr;
+
   document.getElementById("company-name").textContent = data.companyName;
   document.getElementById("ticker-badge").textContent = data.ticker;
   const sym = data.currencySymbol || "$";
@@ -235,4 +248,51 @@ function renderModelsChart(data) {
 function renderRationale(markdown) {
   const container = document.getElementById("rationale");
   container.innerHTML = window.renderMarkdown(markdown);
+}
+
+// --- PDF Download ---
+
+document.getElementById("pdf-btn").addEventListener("click", downloadPdf);
+
+function downloadPdf() {
+  const pdfBtn = document.getElementById("pdf-btn");
+  const ticker = document.getElementById("ticker-badge").textContent || "stock";
+  const dateTag = new Date().toISOString().split("T")[0];
+
+  pdfBtn.disabled = true;
+  pdfBtn.textContent = "Generating\u2026";
+
+  const element = document.getElementById("pdf-content");
+
+  const opt = {
+    margin: [12, 12, 12, 12],
+    filename: ticker + "_analysis_" + dateTag + ".pdf",
+    image: { type: "jpeg", quality: 0.97 },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#0f1117",
+      logging: false,
+    },
+    jsPDF: {
+      unit: "mm",
+      format: "a4",
+      orientation: "portrait",
+    },
+    pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+  };
+
+  html2pdf()
+    .set(opt)
+    .from(element)
+    .save()
+    .then(() => {
+      pdfBtn.disabled = false;
+      pdfBtn.textContent = "\u2195 Download PDF";
+      pdfBtn.innerHTML = "&#8595; Download PDF";
+    })
+    .catch(() => {
+      pdfBtn.disabled = false;
+      pdfBtn.innerHTML = "&#8595; Download PDF";
+    });
 }
