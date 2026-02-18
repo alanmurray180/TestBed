@@ -413,6 +413,32 @@ header h1 {
   letter-spacing: 0.02em;
 }
 
+/* --- PDF Light Theme (applied during export) --- */
+#pdf-content.pdf-light {
+  --bg: #ffffff;
+  --surface: #f5f6f8;
+  --surface-2: #e8eaef;
+  --border: #d0d4dc;
+  --text: #1a1d27;
+  --text-muted: #5a5f72;
+  --accent: #5a4bd1;
+  --accent-light: #5a4bd1;
+  --green: #0a8a86;
+  --red: #d63031;
+  --yellow: #b8860b;
+  background: #ffffff;
+  color: var(--text);
+  padding: 1.5rem;
+}
+
+#pdf-content.pdf-light .summary-card {
+  margin-top: 0.5rem;
+}
+
+#pdf-content.pdf-light .badge {
+  color: #ffffff;
+}
+
 /* --- PDF Download Button --- */
 .pdf-action {
   display: flex;
