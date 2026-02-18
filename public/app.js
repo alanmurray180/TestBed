@@ -264,14 +264,17 @@ function downloadPdf() {
 
   const element = document.getElementById("pdf-content");
 
+  // Switch to light theme for the PDF capture
+  element.classList.add("pdf-light");
+
   const opt = {
-    margin: [12, 12, 12, 12],
+    margin: [10, 10, 10, 10],
     filename: ticker + "_analysis_" + dateTag + ".pdf",
-    image: { type: "jpeg", quality: 0.97 },
+    image: { type: "jpeg", quality: 0.98 },
     html2canvas: {
       scale: 2,
       useCORS: true,
-      backgroundColor: "#0f1117",
+      backgroundColor: "#ffffff",
       logging: false,
     },
     jsPDF: {
@@ -287,11 +290,12 @@ function downloadPdf() {
     .from(element)
     .save()
     .then(() => {
+      element.classList.remove("pdf-light");
       pdfBtn.disabled = false;
-      pdfBtn.textContent = "\u2195 Download PDF";
       pdfBtn.innerHTML = "&#8595; Download PDF";
     })
     .catch(() => {
+      element.classList.remove("pdf-light");
       pdfBtn.disabled = false;
       pdfBtn.innerHTML = "&#8595; Download PDF";
     });
