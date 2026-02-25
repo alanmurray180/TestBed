@@ -42,48 +42,40 @@
     <div id="error" class="hidden"></div>
 
     <div id="results" class="hidden">
-      <div id="pdf-content">
-        <div id="pdf-datestamp" class="pdf-datestamp"></div>
-
-        <div class="summary-card">
-          <div class="company-header">
-            <h2 id="company-name"></h2>
-            <span id="ticker-badge" class="badge"></span>
-          </div>
-
-          <div class="price-grid">
-            <div class="price-box">
-              <span class="label">Current Price</span>
-              <span class="value" id="current-price"></span>
-            </div>
-            <div class="price-box target">
-              <span class="label">Target Price</span>
-              <span class="value" id="target-price"></span>
-            </div>
-            <div class="price-box">
-              <span class="label">Upside / Downside</span>
-              <span class="value" id="upside"></span>
-            </div>
-            <div class="price-box">
-              <span class="label">Recommendation</span>
-              <span class="value" id="recommendation"></span>
-            </div>
-          </div>
+      <div class="summary-card">
+        <div class="company-header">
+          <h2 id="company-name"></h2>
+          <span id="ticker-badge" class="badge"></span>
         </div>
 
-        <div class="models-section">
-          <h3>Valuation Model Breakdown</h3>
-          <div id="models-chart" class="models-chart"></div>
-        </div>
-
-        <div class="rationale-section">
-          <h3>Full Rationale</h3>
-          <div id="rationale" class="rationale-content"></div>
+        <div class="price-grid">
+          <div class="price-box">
+            <span class="label">Current Price</span>
+            <span class="value" id="current-price"></span>
+          </div>
+          <div class="price-box target">
+            <span class="label">Target Price</span>
+            <span class="value" id="target-price"></span>
+          </div>
+          <div class="price-box">
+            <span class="label">Upside / Downside</span>
+            <span class="value" id="upside"></span>
+          </div>
+          <div class="price-box">
+            <span class="label">Recommendation</span>
+            <span class="value" id="recommendation"></span>
+          </div>
         </div>
       </div>
 
-      <div class="pdf-action">
-        <button id="pdf-btn" class="pdf-btn">&#8595; Download PDF</button>
+      <div class="models-section">
+        <h3>Valuation Model Breakdown</h3>
+        <div id="models-chart" class="models-chart"></div>
+      </div>
+
+      <div class="rationale-section">
+        <h3>Full Rationale</h3>
+        <div id="rationale" class="rationale-content"></div>
       </div>
     </div>
 
@@ -93,8 +85,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
-  <script src="markdown.js"></script>
+<script src="markdown.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

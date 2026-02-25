@@ -173,19 +173,6 @@ function renderResults(data) {
     demoBanner.classList.add("hidden");
   }
 
-  // Date stamp
-  const now = new Date();
-  const dateStr = now.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZoneName: "short",
-  });
-  document.getElementById("pdf-datestamp").textContent = "Generated: " + dateStr;
-
   document.getElementById("company-name").textContent = data.companyName;
   document.getElementById("ticker-badge").textContent = data.ticker;
   const sym = data.currencySymbol || "$";
@@ -250,53 +237,3 @@ function renderRationale(markdown) {
   container.innerHTML = window.renderMarkdown(markdown);
 }
 
-// --- PDF Download ---
-
-document.getElementById("pdf-btn").addEventListener("click", downloadPdf);
-
-function downloadPdf() {
-  const pdfBtn = document.getElementById("pdf-btn");
-  const ticker = document.getElementById("ticker-badge").textContent || "stock";
-  const dateTag = new Date().toISOString().split("T")[0];
-
-  pdfBtn.disabled = true;
-  pdfBtn.textContent = "Generating\u2026";
-
-  const element = document.getElementById("pdf-content");
-
-  // Switch to light theme for the PDF capture
-  element.classList.add("pdf-light");
-
-  const opt = {
-    margin: [10, 10, 10, 10],
-    filename: ticker + "_analysis_" + dateTag + ".pdf",
-    image: { type: "jpeg", quality: 0.98 },
-    html2canvas: {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-      logging: false,
-    },
-    jsPDF: {
-      unit: "mm",
-      format: "a4",
-      orientation: "portrait",
-    },
-    pagebreak: { mode: ["css", "legacy"] },
-  };
-
-  html2pdf()
-    .set(opt)
-    .from(element)
-    .save()
-    .then(() => {
-      element.classList.remove("pdf-light");
-      pdfBtn.disabled = false;
-      pdfBtn.innerHTML = "&#8595; Download PDF";
-    })
-    .catch(() => {
-      element.classList.remove("pdf-light");
-      pdfBtn.disabled = false;
-      pdfBtn.innerHTML = "&#8595; Download PDF";
-    });
-}
