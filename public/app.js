@@ -11,6 +11,21 @@ let acItems = [];
 let debounceTimer = null;
 let abortController = null;
 let lastQuery = "";
+let selectedProvider = "yahoo";
+
+// --- Provider toggle ---
+const providerToggle = document.getElementById("provider-toggle");
+providerToggle.addEventListener("click", (e) => {
+  const btn = e.target.closest(".toggle-btn");
+  if (!btn) return;
+  providerToggle.querySelectorAll(".toggle-btn").forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
+  selectedProvider = btn.dataset.provider;
+  // Clear autocomplete cache when provider changes
+  lastQuery = "";
+  hideAutocomplete();
+  input.value = "";
+});
 
 // --- Autocomplete ---
 
@@ -61,7 +76,7 @@ async function fetchSuggestions(query) {
 
   try {
     const res = await fetch(
-      `/api/search?q=${encodeURIComponent(query)}`,
+      `/api/search?q=${encodeURIComponent(query)}&provider=${selectedProvider}`,
       { signal: abortController.signal }
     );
     const data = await res.json();
@@ -131,7 +146,7 @@ form.addEventListener("submit", async (e) => {
   showLoading();
 
   try {
-    const res = await fetch(`/api/analyze/${encodeURIComponent(ticker)}`);
+    const res = await fetch(`/api/analyze/${encodeURIComponent(ticker)}?provider=${selectedProvider}`);
     const data = await res.json();
 
     if (!res.ok) {

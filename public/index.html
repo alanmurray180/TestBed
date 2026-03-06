@@ -17,6 +17,14 @@
       Demo Mode — Yahoo Finance is unreachable. Showing sample data for illustration.
     </div>
 
+    <div class="provider-toggle">
+      <label class="toggle-label">Data Provider:</label>
+      <div class="toggle-buttons" id="provider-toggle">
+        <button type="button" class="toggle-btn active" data-provider="yahoo">Yahoo Finance</button>
+        <button type="button" class="toggle-btn" data-provider="alphavantage">AlphaVantage</button>
+      </div>
+    </div>
+
     <form id="ticker-form">
       <div class="input-group">
         <div class="input-wrapper">
@@ -80,7 +88,7 @@
     </div>
 
     <footer>
-      <p>Data sourced from Yahoo Finance. For informational purposes only &mdash; not investment advice.</p>
+      <p>Data sourced from Yahoo Finance &amp; AlphaVantage. For informational purposes only &mdash; not investment advice.</p>
     </footer>
   </div>
 

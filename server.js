@@ -15,11 +15,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/api/search", async (req, res) => {
   const q = (req.query.q || "").trim();
+  const provider = req.query.provider || "yahoo";
   if (!q || q.length < 1) {
     return res.json([]);
   }
   try {
-    const results = await searchTickers(q);
+    const results = await searchTickers(q, provider);
     res.json(results);
   } catch (err) {
     console.error("Search error:", err.message);
@@ -34,8 +35,10 @@ app.get("/api/analyze/:ticker", async (req, res) => {
     return res.status(400).json({ error: "Invalid ticker symbol. Examples: AAPL, LLOY.L, RHM.F" });
   }
 
+  const provider = req.query.provider || "yahoo";
+
   try {
-    const result = await analyzeStock(ticker);
+    const result = await analyzeStock(ticker, provider);
     res.json(result);
   } catch (err) {
     console.error(`Error analyzing ${ticker}:`, err.message);
